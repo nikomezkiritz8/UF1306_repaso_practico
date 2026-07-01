@@ -1,0 +1,80 @@
+* {
+  margin: 0;
+  padding: 0;
+  outline: 0;
+  box-sizing: border-box;
+}
+
+$tablet: 800px;
+$desktop: 1100px;
+
+section, nav, main, header, footer{
+    width: 100%;
+}
+
+main{
+    display: flex;
+    flex-direction: column;
+    row-gap: 3rem;
+}
+
+
+.navbar{
+
+    backdrop-filter: blur(10px);
+    background-color: #06fcdb !important;
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    @media only screen and (min-width:$desktop){
+        
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+    }
+
+
+}
+
+.navbar-collapse{
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
+
+    @media only screen and (min-width:$desktop){
+        
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+    }
+
+
+}
+
+
+section{
+
+    width: 100%;
+    padding: 3rem;
+    
+    gap: 3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+
+}
+
+
+
+.accordion-item{
+
+    background-color: #06fcdb !important;
+}
+
