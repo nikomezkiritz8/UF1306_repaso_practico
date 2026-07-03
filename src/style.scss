@@ -14,10 +14,11 @@
   font-display: swap;
 }
 
-$color-ink: #1a1a1a;
-$color-paper: #f7f2ec;
-$color-brand: #0b6f8f;
-$color-accent: #b23a2e;
+$color-principal: #0F4C81;
+$color-secundario: #5B5FEF;
+$color-acento: #FF6B35;
+$color-fondo: #F7F9FC;
+$color-negro: black;
 $color-sky: #8cbee9;
 $font-text: 'Manrope', sans-serif;
 $font-heading: 'Noto', serif;
@@ -31,8 +32,8 @@ html {
 body {
   min-width: 320px;
   margin: 0;
-  color: $color-ink;
-  background-color: $color-paper;
+  color: $color-principal;
+  background-color: $color-fondo;
   font-family: $font-text;
 }
 
@@ -47,8 +48,67 @@ h3 {
 }
 
 .navbar {
-  background-color: rgba($color-brand, .92);
+  background-color: rgba($color-negro, .92);
   backdrop-filter: blur(10px);
+}
+
+.navbar-toggler {
+  width: 2.75rem;
+  height: 2.75rem;
+  padding: .5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 0;
+
+  &:focus {
+    box-shadow: 0 0 0 .2rem rgba($color-sky, .45);
+  }
+
+  &[aria-expanded="true"] {
+    .navbar-toggler-icon {
+      background-color: transparent;
+      transform: rotate(180deg);
+
+      &::before {
+        transform: translateY(.44rem) rotate(45deg);
+      }
+
+      &::after {
+        transform: translateY(-.44rem) rotate(-45deg);
+      }
+    }
+  }
+}
+
+.navbar-toggler-icon {
+  position: relative;
+  width: 1.5rem;
+  height: .14rem;
+  background-color: white;
+  background-image: none;
+  border-radius: 999px;
+  transition: background-color .2s ease, transform .25s ease;
+
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    border-radius: inherit;
+    transition: transform .25s ease;
+  }
+
+  &::before {
+    transform: translateY(-.44rem);
+  }
+
+  &::after {
+    transform: translateY(.44rem);
+  }
 }
 
 .navbar-brand {
@@ -77,16 +137,34 @@ h3 {
 }
 
 .hero {
+  --hero-glow-x: 50%;
+  --hero-glow-y: 50%;
+
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
   min-height: 78dvh;
   padding: 8rem 0 5rem;
   display: flex;
   align-items: center;
   color: white;
-  background:
-    linear-gradient(90deg, rgba($color-ink, .78), rgba($color-ink, .36)),
-    url(assets/img/Gemini_Generated_Image_ts36sots36sots36.png);
-  background-position: center;
-  background-size: cover;
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: linear-gradient(90deg, rgba($color-negro, .82), rgba($color-negro, .34));
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: radial-gradient(circle at var(--hero-glow-x) var(--hero-glow-y), rgba($color-secundario, .4), transparent 28rem);
+    pointer-events: none;
+  }
 
   h1 {
     max-width: 11ch;
@@ -96,13 +174,26 @@ h3 {
   }
 }
 
+.hero__video {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.04);
+  transition: transform .35s ease-out;
+}
+
 .hero__content {
+  position: relative;
+  z-index: 1;
   max-width: 720px;
+  transition: transform .35s ease-out;
 }
 
 .hero__eyebrow {
   margin-bottom: .5rem;
-  color: $color-sky;
   font-weight: 800;
   letter-spacing: .08em;
   text-transform: uppercase;
@@ -127,7 +218,7 @@ main {
 
   h2 {
     margin-bottom: 2rem;
-    color: $color-brand;
+    color: $color-negro;
     font-size: clamp(2rem, 5vw, 3.5rem);
     text-align: center;
   }
@@ -140,38 +231,53 @@ main {
 .card {
   overflow: hidden;
   border: 0;
-  box-shadow: 0 1rem 2.5rem rgba($color-ink, .12);
+  box-shadow: 0 1rem 2.5rem rgba($color-principal, .12);
+
+  &:hover{
+
+    transform: translateY(-8px);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    border-color: #6366f1;
+    cursor: pointer;
+  }
 }
 
 .card-img-top {
   aspect-ratio: 4 / 3;
+  object-position: top;
   object-fit: cover;
+
+  &:hover{
+
+    transform: scale(1.08);
+    transition: 0.5s;
+  }
 }
 
 .card-title {
-  color: $color-accent;
+  color: $color-acento;
 }
 
 .btn-primary,
 .btn-outline-primary:hover {
-  border-color: $color-accent;
-  background-color: $color-accent;
+  border-color: $color-acento;
+  background-color: $color-acento;
 }
 
 .btn-outline-primary {
-  color: $color-accent;
-  border-color: $color-accent;
+  color: $color-acento;
+  border-color: $color-acento;
 }
 
 .carousel {
   overflow: hidden;
   border-radius: .5rem;
-  box-shadow: 0 1rem 2.5rem rgba($color-ink, .14);
+  box-shadow: 0 1rem 2.5rem rgba($color-principal, .14);
 }
 
 .carousel-item {
   aspect-ratio: 16 / 9;
-  background-color: $color-ink;
+  background-color: $color-principal;
 
   img {
     width: 100%;
@@ -190,7 +296,7 @@ main {
 
   &:not(.collapsed) {
     color: white;
-    background-color: $color-brand;
+    background-color: $color-negro;
     box-shadow: none;
   }
 
@@ -207,7 +313,7 @@ main {
 footer {
   padding: 2rem 0;
   color: white;
-  background-color: $color-ink;
+  background-color: $color-negro;
 
   a {
     color: $color-sky;
@@ -229,5 +335,30 @@ footer {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+  }
+}
+
+.reveal-on-scroll {
+  opacity: 0;
+  transform: translateY(2rem);
+  transition: opacity .6s ease, transform .6s ease;
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+.reveal-on-scroll.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero__video,
+  .hero__content,
+  .reveal-on-scroll {
+    transform: none;
+    transition: none;
+  }
+
+  .reveal-on-scroll {
+    opacity: 1;
   }
 }
